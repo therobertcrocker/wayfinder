@@ -1,34 +1,63 @@
 package forge
 
 import (
-	"strconv"
-
-	"github.com/therobertcrocker/wayfinder/pkg/utils"
-
 	"github.com/rivo/tview"
+	"github.com/therobertcrocker/wayfinder/internal/wayfinder"
 )
 
-var (
-	levelChoices = []string{
-		strconv.Itoa(utils.PartyLevel - 2),
-		strconv.Itoa(utils.PartyLevel - 1),
-		strconv.Itoa(utils.PartyLevel),
-		strconv.Itoa(utils.PartyLevel + 1),
-		strconv.Itoa(utils.PartyLevel + 2),
-		strconv.Itoa(utils.PartyLevel + 3),
+type QuestForge struct {
+	form       *tview.Form
+	questData  *QuestData
+	worldState wayfinder.WorldState
+}
+
+func NewQuestForge(world wayfinder.WorldState) *QuestForge {
+	return &QuestForge{
+		form:       tview.NewForm(),
+		questData:  NewQuestData(),
+		worldState: world,
 	}
-)
+}
 
-func QuestForm() tview.Primitive {
-	f := tview.NewForm().
-		AddDropDown("Class:", utils.QuestTypes, 0, nil).
-		AddDropDown("Level:", levelChoices, 0, nil).
-		AddInputField("Title:", "", 20, nil, nil).
-		AddTextArea("Summary:", "", 0, 2, 0, nil).
-		AddInputField("Source:", "", 20, nil, nil).
-		AddInputField("Gold:", "", 20, nil, nil).
-		AddDropDown("Treasure Rating:", []string{"-2", "-1", "+0", "+1", "+2"}, 0, nil).
-		AddDropDown("Reputation:", []string{"-5", "-2", "-1", "+0", "+1", "+2", "+5"}, 0, nil)
-	f.SetBorder(true).SetTitle("New Quest")
-	return f
+func (qf *QuestForge) Setup() tview.Primitive {
+	qf.form.
+		AddDropDown("Type", []string{"Hunt", "Acquisitions", "Whisper", "Knowledge"}, 0, func(option string, index int) {
+			qf.questData.Type = option
+		}).
+		AddDropDown("Level", []string{"Level1", "Level2", "Level3"}, 0, func(option string, index int) {
+			qf.questData.Level = option
+		}).
+		AddInputField("Title", "", 20, nil, func(value string) {
+			qf.questData.Title = value
+		}).
+		AddTextArea("Summary", "", 0, 3, 0, func(value string) {
+			qf.questData.Summary = value
+		}).
+		AddInputField("Source", "", 20, nil, func(value string) {
+			qf.questData.Source = value
+		}).
+		AddInputField("Gold", "", 20, nil, func(value string) {
+			qf.questData.Gold = value
+		}).
+		AddDropDown("Treasure Rating", []string{"Rating1", "Rating2", "Rating3"}, 0, func(option string, index int) {
+			qf.questData.TreasureRating = option
+		}).
+		AddDropDown("Reputation", []string{"Reputation1", "Reputation2", "Reputation3"}, 0, func(option string, index int) {
+			qf.questData.Reputation = option
+		}).
+		AddButton("Save JSON", qf.save).
+		AddButton("Save Image", qf.writeOnImage).
+		AddButton("Clear", func() {
+			qf.form.Clear(true)
+		})
+
+	return qf.form
+}
+
+func (qf *QuestForge) save() {
+	// Placeholder code - implement saving quest data to a JSON file
+}
+
+func (qf *QuestForge) writeOnImage() {
+	// Placeholder code - implement loading an image, drawing text on it, and saving the result
 }
