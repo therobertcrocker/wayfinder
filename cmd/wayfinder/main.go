@@ -10,6 +10,7 @@ import (
 
 func main() {
 	worldState := wayfinder.NewInMemoryWorldState()
+	worldState.Init()
 	appController := controller.NewAppController(worldState)
 
 	questForge := forge.NewQuestForge(worldState)
