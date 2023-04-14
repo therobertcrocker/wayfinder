@@ -2,33 +2,10 @@ package forge
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"fmt"
 	"os"
 
-	"github.com/therobertcrocker/wayfinder/internal/wayfinder"
-)
-
-var (
-	QuestTypes = map[string]int{
-		"Hunt":        0,
-		"Acquisition": 1,
-		"Whisper":     2,
-		"Knowledge":   3,
-	}
-
-	XPTable = map[int]int{
-		-2: 100,
-		-1: 200,
-		0:  250,
-		1:  300,
-		2:  400,
-		3:  500,
-	}
-	RewardMod = map[string][]int{
-		"gold":       {2, -1, 0, 0},
-		"treasure":   {-1, 2, -1, 0},
-		"reputation": {0, 0, 2, 0},
-	}
+	"github.com/therobertcrocker/wayfinder/internal/world"
 )
 
 type Quest struct {
@@ -48,35 +25,43 @@ type Reward struct {
 }
 
 type QuestData struct {
+	config *QuestConfig
 	Quest
 }
 
-func NewQuestData() *QuestData {
-	return &QuestData{}
+func NewQuestData(config *QuestConfig) *QuestData {
+	return &QuestData{
+		config: config,
+	}
 }
 
-func (qd *QuestData) CalculateRewards(world wayfinder.WorldState) {
+func (qd *QuestData) CalculateRewards(world *world.JSONWorldState) {
+	xpTable := qd.config.XPTable
+	goldTable := qd.config.GoldByLevel
+	rewardTable := qd.config.RewardTable
+	relativeLevel := qd.Level - world.PartyLevel
 
-	index := QuestTypes[qd.Type]
+	qd.Rewards.XP = int(xpTable[relativeLevel][0])
 
-	qd.Rewards.TreasureRating = RewardMod["treasure"][index]
-	qd.Rewards.Reputation = RewardMod["reputation"][index]
-
-	relativeLevel := qd.Level - world.Get("party_level").(int)
-	qd.Rewards.XP = XPTable[relativeLevel]
-	qd.Rewards.Gold = world.Get("gold_by_level").([]int)[qd.Level] / world.Get("party_size").(int)
+	goldMod := rewardTable["Gold"][qd.Type]
+	qd.Rewards.Gold = goldTable[qd.Level+goldMod] / int(xpTable[relativeLevel][1]) / world.PartySize
+	qd.Rewards.TreasureRating = rewardTable["Loot"][qd.Type]
+	qd.Rewards.Reputation = rewardTable["Reputation"][qd.Type]
 
 }
 
 func (qd *QuestData) SaveToFile(filename string) error {
-	data, err := json.MarshalIndent(qd, "", "  ")
+	file, err := os.Create(filename)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to create file: %v", err)
 	}
+	defer file.Close()
 
-	err = ioutil.WriteFile(filename, data, os.ModePerm)
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", "  ")
+	err = encoder.Encode(qd)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to encode JSON: %v", err)
 	}
 
 	return nil

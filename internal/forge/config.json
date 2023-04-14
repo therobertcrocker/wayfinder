@@ -1,0 +1,59 @@
+{
+    "QuestTypes": [
+      "Hunt",
+      "Acquisition",
+      "Whisper",
+      "Knowledge"
+    ],
+    "XPTable": {
+      "-2": [ 100, 10 ],
+      "-1": [ 200, 5 ],
+      "0": [ 250, 4 ],
+      "1": [ 300, 3 ],
+      "2": [ 400, 2.5 ],
+      "3": [ 500, 2 ]
+    },
+    "RewardTable": {
+      "Gold": {
+        "Hunt": 2,
+        "Acquisition": -1,
+        "Whisper": 0,
+        "Knowledge": 0
+      },
+      "Loot": {
+        "Hunt": -1,
+        "Acquisition": 2,
+        "Whisper": -1,
+        "Knowledge": 0
+      },
+      "Reputation": {
+        "Hunt": 1,
+        "Acquisition": 0,
+        "Whisper": 3,
+        "Knowledge": 1
+      }
+    },
+    "GoldByLevel": [
+      0,
+      40,
+      70,
+      120,
+      200,
+      320,
+      500,
+      720,
+      1000,
+      1400,
+      2000,
+      2800,
+      4000,
+      6000,
+      9000,
+      13000,
+      20000,
+      30000,
+      48000,
+      80000,
+      14000
+    ]
+  }

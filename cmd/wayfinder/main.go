@@ -5,12 +5,12 @@ import (
 	"github.com/therobertcrocker/wayfinder/internal/forge"
 
 	// Import other modules
-	"github.com/therobertcrocker/wayfinder/internal/wayfinder"
+	"github.com/therobertcrocker/wayfinder/internal/world"
 )
 
 func main() {
-	worldState := wayfinder.NewInMemoryWorldState()
-	worldState.Init()
+	worldState, _ := world.NewJSONWorldState("internal/world/configuration/config.json")
+	worldState.Init("internal/world/configuration/worldstate.json")
 	appController := controller.NewAppController(worldState)
 
 	questForge := forge.NewQuestForge(worldState)

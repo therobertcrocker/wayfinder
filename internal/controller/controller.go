@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/rivo/tview"
-	"github.com/therobertcrocker/wayfinder/internal/wayfinder"
+	"github.com/therobertcrocker/wayfinder/internal/world"
 )
 
 type ModuleController interface {
@@ -12,17 +12,17 @@ type ModuleController interface {
 type AppController struct {
 	app          *tview.Application
 	pages        *tview.Pages
-	worldState   wayfinder.WorldState
+	world        world.WorldState
 	modules      []string
 	currentIndex int
 }
 
-func NewAppController(world wayfinder.WorldState) *AppController {
+func NewAppController(world world.WorldState) *AppController {
 	return &AppController{
-		app:        tview.NewApplication().EnableMouse(true),
-		pages:      tview.NewPages(),
-		modules:    []string{},
-		worldState: world,
+		app:     tview.NewApplication().EnableMouse(true),
+		pages:   tview.NewPages(),
+		modules: []string{},
+		world:   world,
 	}
 }
 
