@@ -4,7 +4,9 @@
 
 **Wayfinder** is a suite of tools designed for tabletop role-playing game (TTRPG) enthusiasts, with the main goal of assisting the Game Master (GM) in generating and managing game content.
 
----
+```code
+The project is currently in the early stages of development, with the primary focus being on the **Factions** module. The goal of this module is to provide a tool for managing the various factions and organizations in the world, utilizing the "Faction Turn" mechanics from Stars Without Number.
+```
 
 # Project Structure
 
@@ -30,22 +32,55 @@ The project is divided into several modules, each of which is designed to be as 
 - **Test Driven Development**: Each module is developed using a test-driven approach, with a focus on code coverage and documentation.
 
 
-## Tech Stack
+### TTD  Workflow
+0. **New Feature**: The first step is to identify a new feature or functionality to be added to the project.
+1. **Write a test**: The first step is to write a test for the desired functionality.
+2. **Run the test**: The test should fail, since the functionality has not been implemented yet.
+3. **Write the code**: The next step is to write the code to make the test pass.
+4. **Refactor**: Once the test passes, the code should be refactored to ensure readability and maintainability.
+5. **Repeat**: The process is repeated for each new feature or functionality.
+
+
+
+## Technologies Used
 - **Go**: The primary language for the project.
 - **bbolt**: A fast, embedded, pure Go key/value database.
 - **Cobra**: A Go library for creating powerful modern CLI applications.
 
----
+
+
 
 # Development
 
-## First Iteration
+## Minimum Viable Product (MVP)
 
 The primary focus of this initial phase is on the **Factions** module, providing functionalities such as:
 
 - CRUD operations for factions and their assets.
 - Association of factions with locations.
 - Storage of factions and assets in a bbolt database.
+
+
+### MVP Tasks
+
+**1. Database Setup with bbolt:**
+- Set up the foundational database layer with bbolt.
+- Establish schemas and structures to ensure data consistency and easy retrieval.
+- Implement basic CRUD operations for persistence and retrieval of data.
+
+**2. Codex Initialization:**
+
+- Design the subsystem for Locations within the Codex.
+- Once the design is finalized, implement CRUD operations for Location entities.
+  
+**3. Faction Management MVP:**
+- Design and implement the ECS framework for Factions and Assets.
+- Implement CRUD operations for both entities.
+- establish relations between Factions, Assets, and the Codex (Locations, specifically).
+
+**4. CLI Setup using Cobra:**
+- Setup commands for CRUD operations of Factions and Assets.
+- Implement other desired commands.
 
 
 
