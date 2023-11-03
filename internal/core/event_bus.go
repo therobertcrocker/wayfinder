@@ -42,6 +42,21 @@ func (b *EventBus) Subscribe(eventType EventType, listener *Listener) error {
 	return nil
 }
 
+// Subscribers returns the subscribers for a given event type.
+func (b *EventBus) Subscribers(eventType EventType) []*Listener {
+	return b.subscribers[eventType]
+}
+
+// Subscriber returns the subscriber for a given event type and listener ID.
+func (b *EventBus) Subscriber(eventType EventType, listenerID string) *Listener {
+	for _, l := range b.subscribers[eventType] {
+		if l.ID == listenerID {
+			return l
+		}
+	}
+	return nil
+}
+
 // Unsubscribe unsubscribes a listener from a given event type.
 func (b *EventBus) Unsubscribe(eventType EventType, listener Listener) error {
 
