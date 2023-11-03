@@ -4,7 +4,7 @@
 
 **Wayfinder** is a suite of tools designed for tabletop role-playing game (TTRPG) enthusiasts, with the main goal of assisting the Game Master (GM) in generating and managing game content.
 
-```code
+```
 The project is currently in the early stages of development, with the primary focus being on the **Factions** module. The goal of this module is to provide a tool for managing the various factions and organizations in the world, utilizing the "Faction Turn" mechanics from Stars Without Number.
 ```
 

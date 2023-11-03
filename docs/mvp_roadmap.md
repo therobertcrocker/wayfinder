@@ -2,10 +2,10 @@
 
 ### User Story 1.1: As a Developer, I want to initialize the database using dependency injection so that I can have a modular and testable database setup.
 **Tasks (TDD Loop):**
-  - [ ] **Test Phase:** Write a test to ensure that the database can be initialized without errors using the `DataManager` interface.
+  - [ ] **Test Phase:** Write a test to ensure that the database can be initialized without errors using the `Repository` interface.
   - [ ] **Implementation Phase:** 
-     - [ ] Define the `DataManager` interface.
-     - [ ] Implement the `BboltDataManager` struct.
+     - [ ] Define the `Repository` interface.
+     - [ ] Implement the `BboltRepository` struct.
      - [ ] Run the test to ensure it now passes with the new implementation.
   - [ ] **Refactor Phase:** Review and refactor the code to ensure it's clean, readable, and maintainable.
 
@@ -13,7 +13,7 @@
 **Tasks (TDD Loop):**
   - [ ] **Test Phase:** Write tests to define the expected schema for each entity.
   - [ ] **Implementation Phase:** 
-     - [ ] Define the database schema for each entity.
+     - [ ] Define the database schema for each entity. (Locations, Factions, Assets to start)
      - [ ] Implement the schema in the database.
      - [ ] Run the tests to ensure they now pass.
   - [ ] **Refactor Phase:** Review and refactor the schema and structure code to ensure it's clean and maintainable.
@@ -41,9 +41,9 @@
 
 ## Faction Management MVP
 
-### User Story 3.1: As a Developer, I want to use the ECS framework for Factions and Assets so that I can manage different factions and their assets in the game.
+### User Story 3.1: As a Developer, I want to create the data structures Factions and Assets so that I can manage different factions and their assets in the game.
 **Tasks (TDD Loop):**
-  - [ ] **Test Phase:** Write tests to ensure that factions and assets can be created, retrieved, and managed using the ECS framework.
+  - [ ] **Test Phase:** Write tests to ensure that factions and assets can be created, retrieved, and managed
   - [ ] **Implementation Phase:** 
      - [ ] Define the structure for factions and assets.
      - [ ] Implement methods to create, retrieve, and manage factions and assets.

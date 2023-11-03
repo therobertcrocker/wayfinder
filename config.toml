@@ -1,2 +1,2 @@
 [database]
-    path = "db/wayfinder.db"
+path = "db/wayfinder.db"
