@@ -1,4 +1,4 @@
-package core
+package events
 
 // EventType represents the type of a given event.
 type EventType string
