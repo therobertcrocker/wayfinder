@@ -4,22 +4,18 @@
 
 **Wayfinder** is a suite of tools designed for tabletop role-playing game (TTRPG) enthusiasts, with the main goal of assisting the Game Master (GM) in generating and managing game content.
 
-```
-The project is currently in the early stages of development, with the primary focus being on the **Factions** module. The goal of this module is to provide a tool for managing the various factions and organizations in the world, utilizing the "Faction Turn" mechanics from Stars Without Number.
-```
+
+>The project is currently in the early stages of development, with the primary focus being on the **Machinations** module. The goal of this module is to provide a tool for managing the various factions and organizations in the world, utilizing the "Faction Turn" mechanics from Stars Without Number.
+
 
 # Project Structure
 
 The project is divided into several modules, each of which is designed to be as independent as possible. The planned modules are as follows:
 
 ### MVP
-- **Core**: An event bus and messaging system with shared utilities.
-- **Codex**: Manages the state of the world and various world entities, such as regions, locations, NPCs, timelines, and historical events.
+- **Core**: The main service handler that provides access to the various modules through an event bus.
+- **Codex**: Manages the state of the world and various world entities, such as regions, locations, NPCs, timelines, and historical events. Contains references to the objects managed by the other modules, such as factions and assets. The Codex is the primary source of truth for the world state.
 - **Machinations**: A tool for managing the various factions and organizations in the world. Will eventually handle the "Faction Turn" mechanics from Stars Without Number. 
-
-### Future
-- **Chronicle**: A tool for creating and managing in-world quests.
-- **Generation**: Various random content generation tools (names, loot, etc.).
 
 
 ## Design Philosophy
@@ -41,7 +37,6 @@ The project is divided into several modules, each of which is designed to be as 
 5. **Repeat**: The process is repeated for each new feature or functionality.
 
 
-
 ## Technologies Used
 - **Go**: The primary language for the project.
 - **bbolt**: A fast, embedded, pure Go key/value database.
@@ -54,44 +49,12 @@ The project is divided into several modules, each of which is designed to be as 
 
 ## Minimum Viable Product (MVP)
 
-The primary focus of this initial phase is on the **Factions** module, providing functionalities such as:
+The primary focus of this initial phase is on the **Machinations** module, providing functionalities such as:
 
 - CRUD operations for factions and their assets.
-- Association of factions with locations.
 - Storage of factions and assets in a bbolt database.
-
-
-### MVP Tasks
-
-**1. Database Setup with bbolt:**
-- Set up the foundational database layer with bbolt.
-- Establish schemas and structures to ensure data consistency and easy retrieval.
-- Implement basic CRUD operations for persistence and retrieval of data.
-
-**2. Codex Initialization:**
-
-- Design the subsystem for Locations within the Codex.
-- Once the design is finalized, implement CRUD operations for Location entities.
-  
-**3. Faction Management MVP:**
-- Design and implement the ECS framework for Factions and Assets.
-- Implement CRUD operations for both entities.
-- establish relations between Factions, Assets, and the Codex (Locations, specifically).
-
-**4. CLI Setup using Cobra:**
-- Setup commands for CRUD operations of Factions and Assets.
-- Implement other desired commands.
-
-
-
-## Future Plans
-
-Once the MVP for the Factions module is complete, development will expand to include the following modules:
-
-- **Core**: An event bus and messaging system with shared utilities.
-- **Codex**: Manages the state of the world and various world entities, such as regions, locations, NPCs, timelines, and historical events.
-- **Quests**: A tool for creating and managing in-world quests.
-- **Generation**: Various random content generation tools (names, loot, etc.).
+- CLI for interacting with the module.
+- Event bus for communicating with other modules.
 
 ---
 
