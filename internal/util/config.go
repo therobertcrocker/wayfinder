@@ -6,7 +6,8 @@ import (
 
 // DatabaseConfig holds config values for the database.
 type DatabaseConfig struct {
-	Path string `toml:"path"`
+	Path    string   `toml:"path"`
+	Buckets []string `toml:"buckets"`
 }
 
 // Config brings together all of the config structs into one.
