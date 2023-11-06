@@ -7,7 +7,11 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/therobertcrocker/wayfinder/cmd/wayfinder_cli/commands/machinations"
+	"github.com/therobertcrocker/wayfinder/internal/core"
 )
+
+var coreInstance *core.Core
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -21,21 +25,17 @@ var rootCmd = &cobra.Command{
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
+func Execute(c *core.Core) {
+
+	// Set the core instance
+	coreInstance = c
+
+	// Add the Machinations commands
+	assetsCmd := machinations.AssetsCmd(coreInstance)
+	rootCmd.AddCommand(assetsCmd)
+
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}
-}
-
-func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cmd.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

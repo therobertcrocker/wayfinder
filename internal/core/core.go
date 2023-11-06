@@ -7,12 +7,12 @@ import (
 )
 
 type Core struct {
-	Config       util.Config
+	Config       *util.Config
 	Storage      db.StorageManager
 	Machinations *machinations.Machinations
 }
 
-func NewCore(config util.Config) *Core {
+func NewCore(config *util.Config) *Core {
 	storage := db.NewBboltStorageManager(config.Database.Path, config.Database.Buckets)
 	machinations := machinations.NewMachinations(storage)
 

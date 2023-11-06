@@ -1,3 +1,3 @@
 [database]
 path = "db/wayfinder.db"
-buckets = ["machinations","events","codex"]
+buckets = ["machinations_factions", "machinations_assets"]
