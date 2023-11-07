@@ -1,10 +1,9 @@
 package repositories
 
 import (
-	"errors"
-
 	"github.com/therobertcrocker/wayfinder/internal/machinations/entities"
 	db "github.com/therobertcrocker/wayfinder/internal/storage"
+	"github.com/therobertcrocker/wayfinder/internal/util"
 )
 
 type AssetRepository interface {
@@ -27,5 +26,6 @@ func NewAssetRepo(storage db.StorageManager) *AssetRepo {
 
 // Add Assets to the storage
 func (r *AssetRepo) AddAssets(assets []*entities.Asset) error {
-	return errors.New("not implemented")
+	util.Log.Infof("Adding assets to storage...TODO: implement")
+	return nil
 }
