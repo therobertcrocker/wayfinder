@@ -7,10 +7,10 @@ import (
 
 type StorageManager interface {
 	// Get retrieves a value from the database.
-	Get(bucket string, key []byte) ([]byte, error)
+	Get(bucket string, key string) ([]byte, error)
 
 	// Put stores a value in the database.
-	Put(bucket string, key []byte, value []byte) error
+	Put(bucket string, key string, value []byte) error
 
 	// BulkAdd adds a batch of key/value pairs to the database.
 	BulkAdd(bucket string, data map[string][]byte) error
@@ -55,27 +55,27 @@ func NewBboltStorageManager(path string, buckets []string) *BboltStorageManager 
 }
 
 // Get retrieves a value from the database.
-func (s *BboltStorageManager) Get(bucket string, key []byte) ([]byte, error) {
+func (s *BboltStorageManager) Get(bucket string, key string) ([]byte, error) {
 	var value []byte
 	err := s.DB.View(func(tx *bbolt.Tx) error {
 		b := tx.Bucket([]byte(bucket))
 		if b == nil {
 			return nil
 		}
-		value = b.Get(key)
+		value = b.Get([]byte(key))
 		return nil
 	})
 	return value, err
 }
 
 // Put stores a value in the database.
-func (s *BboltStorageManager) Put(bucket string, key []byte, value []byte) error {
+func (s *BboltStorageManager) Put(bucket string, key string, value []byte) error {
 	return s.DB.Update(func(tx *bbolt.Tx) error {
 		b := tx.Bucket([]byte(bucket))
 		if b == nil {
 			return nil
 		}
-		return b.Put(key, value)
+		return b.Put([]byte(key), value)
 	})
 }
 

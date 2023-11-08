@@ -24,7 +24,7 @@ func AssetsCmd(c *core.Core) *cobra.Command {
 		},
 	}
 
-	bulkAddCmd := assets.AddAssetsCmd(coreInstance)
+	bulkAddCmd := assets.BulkAddAssetsCmd(coreInstance)
 
 	assetsCmd.AddCommand(bulkAddCmd)
 

@@ -1,15 +1,18 @@
 package repositories
 
 import (
-	"github.com/therobertcrocker/wayfinder/internal/machinations/entities"
+	"encoding/json"
+
+	"github.com/therobertcrocker/wayfinder/internal/machinations/domain"
 	db "github.com/therobertcrocker/wayfinder/internal/storage"
-	"github.com/therobertcrocker/wayfinder/internal/util"
+)
+
+const (
+	AssetPoolBucket = "machinations_assetPool"
 )
 
 type AssetRepository interface {
-
-	// Add Assets to the storage
-	AddAssets(assets []*entities.Asset) error
+	LoadAssetsFromStorage(pool *domain.AssetPool) error
 }
 
 var _ AssetRepository = (*AssetRepo)(nil)
@@ -24,8 +27,33 @@ func NewAssetRepo(storage db.StorageManager) *AssetRepo {
 	}
 }
 
-// Add Assets to the storage
-func (r *AssetRepo) AddAssets(assets []*entities.Asset) error {
-	util.Log.Infof("Adding assets to storage...TODO: implement")
+func (ar *AssetRepo) LoadAssetsFromStorage(pool *domain.AssetPool) error {
+	cunningAssets, err := ar.Storage.Get(AssetPoolBucket, "cunning")
+	if err != nil {
+		return err
+	}
+
+	wealthAssets, err := ar.Storage.Get(AssetPoolBucket, "wealth")
+	if err != nil {
+		return err
+	}
+
+	forceAssets, err := ar.Storage.Get(AssetPoolBucket, "force")
+	if err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(cunningAssets, &pool.Cunning); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(wealthAssets, &pool.Wealth); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(forceAssets, &pool.Force); err != nil {
+		return err
+	}
+
 	return nil
 }
