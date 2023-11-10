@@ -1,0 +1,6 @@
+[logging]
+level = "debug"
+
+[database]
+path = "db/wayfinder.db"
+buckets = ["machinations_factions", "machinations_assetPool"]

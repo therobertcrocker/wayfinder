@@ -1,0 +1,2 @@
+attribute,class,type,action_description,credits,upkeep,tech_level,attribute_threshold,target_attribute,use_attribute,damage_count,damge_die,damage_mod,counter_attack_count,counter_attack_die,counter_attack_mod,quality_1,quality_2,quality_3
+cunning,test_asset,test,This is an action description,6,1,1,4,cunning,cunning,1,4,2,1,6,0,Special,Action,
