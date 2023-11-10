@@ -1,6 +1,6 @@
 package domain
 
-import "github.com/therobertcrocker/wayfinder/internal/util"
+import "github.com/therobertcrocker/wayfinder/internal/common/util"
 
 // ---------------------- Components ----------------------
 
@@ -24,8 +24,10 @@ type FactionWealth struct {
 }
 
 type AssetInfo struct {
+	Class     string    `json:"class"`
 	Type      string    `json:"type"`
 	Attribute Attribute `json:"attribute"`
+	TechLevel TechLevel `json:"tech_level"`
 	Qualities []string  `json:"qualities"`
 }
 

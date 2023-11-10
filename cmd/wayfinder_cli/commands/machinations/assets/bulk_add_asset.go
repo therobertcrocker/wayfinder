@@ -2,6 +2,7 @@ package assets
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/therobertcrocker/wayfinder/internal/common/logging"
 	"github.com/therobertcrocker/wayfinder/internal/core"
 )
 
@@ -16,10 +17,17 @@ func BulkAddAssetsCmd(c *core.Core) *cobra.Command {
 
 	bulkAddAssetsCmd := &cobra.Command{
 		Use:   "bulk-add",
-		Short: "Bulk add assets",
-		Long:  ``,
+		Short: "Bulk add assets from a file",
+		Long:  `This command will add assets from a file to the database.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			coreInstance.Machinations.AssetStore.BulkAddAssets(filePath, fileType)
+
+			logging.Log.Info("Bulk adding assets")
+
+			if err := coreInstance.Machinations.AssetStore.BulkAddAssets(filePath, fileType); err != nil {
+				logging.Log.Fatalf("failed to bulk add assets: %v", err)
+			}
+
+			logging.Log.Info("Bulk adding assets complete")
 		},
 	}
 

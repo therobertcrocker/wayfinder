@@ -1,9 +1,9 @@
 package core
 
 import (
+	"github.com/therobertcrocker/wayfinder/internal/common/config"
 	machinations "github.com/therobertcrocker/wayfinder/internal/machinations/data_stores"
 	db "github.com/therobertcrocker/wayfinder/internal/storage"
-	"github.com/therobertcrocker/wayfinder/internal/util"
 )
 
 type Machinations struct {
@@ -12,12 +12,12 @@ type Machinations struct {
 }
 
 type Core struct {
-	Config       *util.Config
+	Config       *config.Config
 	Storage      db.StorageManager
 	Machinations *Machinations
 }
 
-func NewCore(config *util.Config) *Core {
+func NewCore(config *config.Config) *Core {
 	storage := db.NewBboltStorageManager(config.Database.Path, config.Database.Buckets)
 	machinations := &Machinations{
 		AssetStore:   machinations.NewAssetStore(storage),

@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"github.com/therobertcrocker/wayfinder/internal/util"
+	"github.com/therobertcrocker/wayfinder/internal/common/logging"
 	"go.etcd.io/bbolt"
 )
 
@@ -36,7 +36,7 @@ type BboltStorageManager struct {
 func NewBboltStorageManager(path string, buckets []string) *BboltStorageManager {
 	db, err := bbolt.Open(path, 0600, nil)
 	if err != nil {
-		util.Log.Fatalf("failed to open database: %v", err)
+		logging.Log.Fatalf("failed to open database: %v", err)
 	}
 
 	storage := &BboltStorageManager{
@@ -47,7 +47,7 @@ func NewBboltStorageManager(path string, buckets []string) *BboltStorageManager 
 	}
 
 	if err := storage.init(); err != nil {
-		util.Log.Fatalf("failed to initialize database: %v", err)
+		logging.Log.Fatalf("failed to initialize database: %v", err)
 	}
 
 	return storage

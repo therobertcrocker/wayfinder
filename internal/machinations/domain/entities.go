@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"github.com/therobertcrocker/wayfinder/internal/util"
+	"github.com/therobertcrocker/wayfinder/internal/common/util"
 )
 
 // ---------------------- Entities ----------------------
@@ -34,7 +34,7 @@ type AssetPool struct {
 
 type AssetRecord struct {
 	ID       util.EntityID `json:"id"`
-	Name     string        `json:"name"`
+	Name     string        `json:"Name"`
 	Location util.EntityID `json:"location"`
 	Data     Asset         `json:"data"`
 }
